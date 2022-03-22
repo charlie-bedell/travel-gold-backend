@@ -19,6 +19,10 @@ userSchema.set('toJSON', {
   },
 })
 
+userSchema.methods.comparePassword = function (tryPassword, cb) {
+  bcrypt.compare(tryPassword, this.password, cb)
+}
+
 userSchema.pre('save', function (next) {
   const user = this
   if (!user.isModified('password')) return next()

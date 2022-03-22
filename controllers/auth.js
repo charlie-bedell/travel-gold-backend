@@ -31,6 +31,24 @@ function signup(req, res) {
   })
 }
 
+function login(req, res) {
+  User.findOne({ email: req.body.email })
+  .then(user => {
+    if (!user) return res.status(401).json({ err: 'User not found' })
+    user.comparePassword(req.body.pw, (err, isMatch) => {
+      if (isMatch) {
+        const token = createJWT(user)
+        res.json({ token })
+      } else {
+        res.status(401).json({ err: 'Incorrect password'})
+      }
+    })
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
+}
+
 function createJWT(user) {
   return jwt.sign(
     { user }, // data payload
@@ -39,4 +57,7 @@ function createJWT(user) {
   )
 }
 
-export { signup, }
+export { 
+  signup,
+  login
+}
