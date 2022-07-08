@@ -8,12 +8,11 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "debug": "^4.3.3",
-    "dotenv": "^16.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.3",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "http-errors": "^2.0.0",
-    "mongoose": "^6.2.7",
+    "mongoose": "^6.4.3",
     "morgan": "^1.10.0"
   }
 }
