@@ -1,11 +1,13 @@
 import mongoose from 'mongoose'
 
-const profileSchema = new mongoose.Schema({
+const Schema = mongoose.Schema
+
+const profileSchema = new Schema({
   name: String,
 },{
-    timestamps: true,
+  timestamps: true,
 })
 
 const Profile = mongoose.model('Profile', profileSchema)
 
-export {Profile}
+export { Profile }
