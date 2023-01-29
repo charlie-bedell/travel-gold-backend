@@ -1,6 +1,6 @@
 {
-  "name": "destroy-e-gen",
-  "version": "0.0.0",
+  "name": "jwt-mern-auth-starter",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,12 +9,10 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-    "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.5",
+    "mongoose": "^6.9.0",
     "morgan": "^1.10.0"
   }
 }
