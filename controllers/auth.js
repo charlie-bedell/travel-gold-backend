@@ -1,5 +1,17 @@
+import jwt from 'jsonwebtoken'
+
 import { User } from '../models/user.js'
 import { Profile } from '../models/profile.js'
+
+/*----- Helper Functions -----*/
+
+function createJWT(user) {
+  return jwt.sign(
+    { user }, // data payload
+    process.env.SECRET,
+    { expiresIn: '24h' }
+  )
+}
 
 function signup(req, res) {
   User.findOne({ email: req.body.email })
@@ -14,8 +26,8 @@ function signup(req, res) {
         req.body.profile = newProfile._id
         User.create(req.body)
         .then(user => {
-          // TODO: Send back a JWT instead of the user
-          res.status(200).json(user)
+          const token = createJWT(user)
+          res.status(200).json({ token })
         })
         .catch(err => {
           Profile.findByIdAndDelete(newProfile._id)

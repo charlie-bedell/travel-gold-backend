@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
+const SALT_ROUNDS = 6
 
 const Schema = mongoose.Schema
 
@@ -16,6 +18,23 @@ userSchema.set('toJSON', {
     delete ret.password
     return ret
   },
+})
+
+userSchema.pre('save', function (next) {
+  // this will be set to the current document
+  const user = this
+  if (!user.isModified('password')) return next()
+	// password has been changed - salt and hash it
+  bcrypt.hash(user.password, SALT_ROUNDS)
+  .then(hash => {
+		// replace the user provided password with the hash
+    user.password = hash
+    next()
+  })
+  .catch(err => {
+    console.log(err)
+    next(err)
+  })
 })
 
 const User = mongoose.model('User', userSchema)
