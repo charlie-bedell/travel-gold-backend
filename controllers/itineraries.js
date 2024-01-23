@@ -71,7 +71,7 @@ function createNewItinerary(req,res) {
 
 function editItinerary(req,res) {
   const profileId = req.user.profile;
-  const itineraryId = req.params.itineraryId;
+  const itineraryId = req.params.itinerary_id;
   Itinerary.findByIdAndUpdate(itineraryId, req.body)
     .then((itinerary) => {
       if (!itinerary) {
@@ -87,8 +87,28 @@ function editItinerary(req,res) {
 };
 
 function deleteItinerary(req,res) {
+  const profileId = req.user.profile;
+  const itineraryId = req.params.itinerary_id;
+  Itinerary.findById(itineraryId)
+  .then((itinerary) => {
+    if(!itinerary) {
+      throw new Error('The itinerary does not exist')
+    } else if (profileId !== itinerary.profile_id) {
+      throw new Error('User deos not have permission to delete')
+      }
+    Itinerary.findByIdAndDelete(itineraryId)
+    .then(() => {
+      res.status(200).json({message: "Itinerary Deleted"});
+    })
+})
+.catch((error) => {
+  console.error(error.message);
+  res.status(500).json({ error: 'Internal Server Error' });
+})
+}
 
-};
+
+
 
 
 
