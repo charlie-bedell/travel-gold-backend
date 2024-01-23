@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Profile } from './profile.js';
 
 const Schema = mongoose.Schema;
 
@@ -10,6 +11,10 @@ const itinerarySchema = new Schema ({
 });
 
 itinerarySchema.post('findOneAndDelete', async (itinerary, next) => {
+  const itineraryId = itinerary._id;
+  const profileId = itinerary.profile_id;
+  await Profile.findByIdAndUpdate(profileId, {$pull: {itinerary_ids: itineraryId}});
+  next();
 });
 
 const Itinerary = mongoose.model('Itinerary', itinerarySchema);
