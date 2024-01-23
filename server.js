@@ -23,7 +23,7 @@ app.use(express.json());
 // mount imported routes
 app.use('/api/profiles', profilesRouter);
 app.use('/api/auth', authRouter);
-app.use('/', itinRouter);
+app.use('/itineraries', itinRouter);
 
 // handle 404 errors
 app.use(function (req, res, next) {

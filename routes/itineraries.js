@@ -3,14 +3,14 @@ import * as itinerariesController from "../controllers/itineraries.js";
 
 const router = Router();
 
-router.get('/itineraries', itinerariesController.getItineraryList  );
+router.get('/', itinerariesController.getItineraryList  );
 
-router.get('/itineraries/:itinerary_id', itinerariesController. getItineraryInfo);
+router.get('/:itinerary_id', itinerariesController. getItineraryInfo);
 
-router.post('/itineraries',itinerariesController.createNewItinerary );
+router.post('/',itinerariesController.createNewItinerary );
 
-router.put('/itineraries/:itinerary_id', itinerariesController.editItinerary);
+router.put('/:itinerary_id', itinerariesController.editItinerary);
 
-router.delete('/itineraries/:itinerary_id', itinerariesController.deleteItinerary );
+router.delete('/:itinerary_id', itinerariesController.deleteItinerary );
 
-export { router }
+export { router } 
