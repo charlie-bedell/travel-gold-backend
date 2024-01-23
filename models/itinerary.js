@@ -8,6 +8,6 @@ const itinerarySchema = new Schema ({
   poi_ids: [{type: mongoose.Schema.Types.ObjectId, ref: 'POI'}]
 });
 
-const Itinerary = mongoose.mode('Itinerary', itinerarySchema);
+const Itinerary = mongoose.model('Itinerary', itinerarySchema);
 
 export { Itinerary }
