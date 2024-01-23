@@ -3,10 +3,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const poiSchema = new Schema ({
+  name: String,
   business_status: String, // change to enum
   formatted_address: String,
   formatted_phone_number: String,
-  name: String,
   weekday_text: [String],
   place_id: String,
   rating: Number,
