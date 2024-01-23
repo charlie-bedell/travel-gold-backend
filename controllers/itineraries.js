@@ -1,7 +1,7 @@
 import { Profile } from "../models/profile.js";
 import { Itinerary } from "../models/itinerary.js";
 
-function getItineraryList(req,res) {
+function getItineraryList(req, res) {
   // get list of itineraries by profile_id
   Profile.findOne({_id: req.user.profile })
     .then((profile) => {
@@ -21,7 +21,7 @@ function getItineraryList(req,res) {
 };
 
 
-function getItineraryInfo(req,res) {
+function getItineraryInfo(req, res) {
   // get POI info by specific itinerary_id and profile_id
   // if itinerary is public, return it, otherwise, check if its
   // owned by the user, if not, return an error
@@ -48,7 +48,7 @@ function getItineraryInfo(req,res) {
   });
 };
 
-function createNewItinerary(req,res) {
+function createNewItinerary(req, res) {
   // creates a new itinerary and adds the id to the user doc that created it
   const profileId = req.user.profile;
   const itineraryBody = req.body;
@@ -69,7 +69,7 @@ function createNewItinerary(req,res) {
     });
 };
 
-function editItinerary(req,res) {
+function editItinerary(req, res) {
   const profileId = req.user.profile;
   const itineraryId = req.params.itinerary_id;
   Itinerary.findByIdAndUpdate(itineraryId, req.body)
@@ -86,20 +86,20 @@ function editItinerary(req,res) {
     });
 };
 
-function deleteItinerary(req,res) {
+function deleteItinerary(req, res) {
   const profileId = req.user.profile;
   const itineraryId = req.params.itinerary_id;
   Itinerary.findById(itineraryId)
   .then((itinerary) => {
     if(!itinerary) {
-      throw new Error('The itinerary does not exist')
+      throw new Error('The itinerary does not exist');
     } else if (profileId !== itinerary.profile_id) {
-      throw new Error('User deos not have permission to delete')
+      throw new Error('User deos not have permission to delete');
       }
     Itinerary.findByIdAndDelete(itineraryId)
     .then(() => {
       res.status(200).json({message: "Itinerary Deleted"});
-    })
+    });
 })
 .catch((error) => {
   console.error(error.message);
