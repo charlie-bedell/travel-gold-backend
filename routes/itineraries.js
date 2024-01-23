@@ -1,19 +1,16 @@
 import { Router } from "express";
 import * as itinerariesController from "../controllers/itineraries.js";
 
-const router = Router()
+const router = Router();
 
+router.get('/itineraries', itinerariesController.getItineraryList  );
 
+router.get('/itineraries/:itinerary_id', itinerariesController. getItineraryInfo);
 
-router.get('/itineraries', itinerariesController  )
+router.post('/itineraries',itinerariesController.createNewItinerary );
 
-router.get('/itineraries/:itinerary_id', itinerariesController )
+router.put('/itineraries/:itinerary_id', itinerariesController.editItinerary);
 
-router.post('/itineraries',itinerariesController )
+router.delete('/itineraries/:itinerary_id', itinerariesController.deleteItinerary );
 
-router.put('/itineraries/:itinerary_id', itinerariesController)
-
-router.delete('/itineraries/:itinerary_id', itinerariesController )
-
-
-export default router 
+export { router }
