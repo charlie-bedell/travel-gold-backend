@@ -3,11 +3,11 @@ import * as itinerariesController from "../controllers/itineraries.js";
 
 const router = Router();
 
-router.get('/', itinerariesController.getItineraryList  );
+router.get('/', itinerariesController.getItineraryList);
 
-router.get('/:itinerary_id', itinerariesController. getItineraryInfo);
+router.get('/:itinerary_id', itinerariesController.getItineraryInfo);
 
-router.post('/',itinerariesController.createNewItinerary );
+router.post('/',itinerariesController.createNewItinerary);
 
 router.put('/:itinerary_id', itinerariesController.editItinerary);
 
