@@ -11,7 +11,7 @@ import './config/database.js';
 import { router as profilesRouter } from './routes/profiles.js';
 import { router as authRouter } from './routes/auth.js';
 import { router as itinRouter } from './routes/itineraries.js';
-
+import { decodeUserFromToken } from './middleware/auth.js';
 // create the express app
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(express.json());
 // mount imported routes
 app.use('/api/profiles', profilesRouter);
 app.use('/api/auth', authRouter);
-app.use('/itineraries', itinRouter);
+app.use('/itineraries', decodeUserFromToken, itinRouter);
 
 // handle 404 errors
 app.use(function (req, res, next) {
