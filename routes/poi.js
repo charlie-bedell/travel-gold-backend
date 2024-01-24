@@ -6,4 +6,6 @@ const router = Router();
 router.get('/:place_id', poiController.getPlace)
 
 
+
+
 export { router }
