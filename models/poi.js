@@ -11,7 +11,7 @@ const poiSchema = new Schema ({
   place_id: String,
   rating: Number,
   website: String,
-  serves_bee: Boolean,
+  serves_beer: Boolean,
   serves_breakfast: Boolean,
   serves_lunch: Boolean,
   serves_dinner: Boolean,
