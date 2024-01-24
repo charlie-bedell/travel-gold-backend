@@ -1,18 +1,22 @@
-import { Poi } from "../models/poi.js";
-import { Profile } from "../models/profile.js";
-import { Itinerary } from "../models/itinerary.js";
-import axios from 'axios'
+// import { Poi } from "../models/poi.js";
+// import { Profile } from "../models/profile.js";
+// import { Itinerary } from "../models/itinerary.js";
+import axios from 'axios';
 
 function getPlace(req,res) {
-  console.log(process.env.GOOGLE_MAPS_API_KEY)
-  console.log(req.params)
-  axios.get(`https://places.googleapis.com/v1/places/${req.params.place_id}?fields=id,displayName&key=${process.env.GOOGLE_MAPS_API_KEY}`)
+  const place_id = req.params.place_id;
+  const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+  const placeFields = ['id', 'displayName'];
+  console.log('place_id: ', place_id);
+  console.log('GOOGLE_MAPS_API_KEY: ', GOOGLE_MAPS_API_KEY);
+
+  axios.get(`https://places.googleapis.com/v1/places/${place_id}?fields=${placeFields.join(",")}&key=${GOOGLE_MAPS_API_KEY}`)
   .then((result) => {
-    res.status(200).json({result})
+    res.status(200).json(result.data);
   })
   .catch ((err) => {
-    res.status(501).json({message:'error fetching place details', error:`${err}`})
-  })
+    res.status(501).json({message:'error fetching place details', error:`${err}`});
+  });
 }
 
 
