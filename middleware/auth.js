@@ -6,7 +6,6 @@ const decodeUserFromToken = (req, res, next) => {
   let token = req.get('Authorization') || req.query.token || req.body.token;
   if (token) {
     token = token.replace('Bearer ', '');
-    console.log("token: ", token);
     jwt.verify(token, SECRET, (err, decoded) => {
       if (err) {
         next(err);
