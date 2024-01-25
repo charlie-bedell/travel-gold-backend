@@ -3,6 +3,30 @@
 // import { Itinerary } from "../models/itinerary.js";
 import axios from 'axios';
 
+function mapPlacetoPoi(placeData) {
+  const poiData = {
+    place_id: placeData.id,
+    name: placeData.displayName.text,
+    business_status: placeData.business_status,
+    formatted_address: placeData.formattedAddress,
+    international_phone_number: placeData.internationPhoneNumber,
+    national_phone_number: placeData.nationalPhoneNumber,
+    openingHours: placeData.regularOpeningHours.weekdayDescriptions, // todo: does this work?
+    rating: placeData.rating,
+    website: placeData.websiteUri,
+    serves_beer: placeData.serves_beer,
+    serves_lunch: placeData.serves_lunch,
+    serves_dinner: placeData.serves_dinner,
+    serves_wine: placeData.serves_wine,
+    price_level: placeData.price_level,
+    reservable: placeData.reservable,
+    types: placeData.types,
+    summary: placeData.editorial_summary
+  };
+
+  return poiData;
+}
+
 function fetchPlace(req,res) {
   const place_id = req.params.place_id;
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
