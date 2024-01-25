@@ -54,7 +54,6 @@ async function fetchPlace(place_id, itinerary_id) {
     let result = await axios.get(`https://places.googleapis.com/v1/places/${place_id}?fields=${placeFields.join(",")}&key=${GOOGLE_MAPS_API_KEY}`);
     const poiData = mapPlaceToPoi(result.data);
     const poi = await Poi.create(poiData).then((newPoi) => {
-      console.log('issue on line 57');
       Itinerary.findOneAndUpdate({_id: itinerary_id}, {$push: { place_ids: place_id}});
     });
     return poi;
@@ -69,7 +68,6 @@ async function getPlace(req,res) {
   try {
     const poi = await Poi.findOne({ place_id: `${place_id}` });
     if (poi) {
-      console.log('issue on line 73');
       await Itinerary.findOneAndUpdate({_id: itinerary_id}, {$push: { place_ids: place_id}});
       res.status(200).json(poi);
     } else {
