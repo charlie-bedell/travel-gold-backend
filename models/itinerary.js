@@ -5,10 +5,21 @@ const Schema = mongoose.Schema;
 
 const itinerarySchema = new Schema ({
   name: String,
+  startDate: {type: Date, required:true },
+  endDate: {type: Date, required:true},
   profile_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
-  poi_ids: [{type: mongoose.Schema.Types.ObjectId, ref: 'POI'}],
+  start_date: {type: Date},
+  end_date: {type: Date},
+  place_ids: [{type: String}],
   isPublic: Boolean
 });
+
+itinerarySchema.pre('save', function (next) {
+  this.markModified('startDate');
+  this.markModified('endDate');
+  next();
+});
+
 
 itinerarySchema.post('findOneAndDelete', async (itinerary, next) => {
   const itineraryId = itinerary._id;

@@ -3,21 +3,24 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const poiSchema = new Schema ({
-  name: String,
-  business_status: String, // change to enum
-  formatted_address: String,
-  formatted_phone_number: String,
-  weekday_text: [String],
-  place_id: String,
-  rating: Number,
-  website: String,
-  serves_bee: Boolean,
-  serves_breakfast: Boolean,
-  serves_lunch: Boolean,
-  serves_dinner: Boolean,
-  serves_vegetarian_food: Boolean,
-  serves_wine: Boolean,
-  price_level: Number // change to enum
+  place_id: String, // id
+  name: String, // displayName.text
+  business_status: String, // business_status
+  formatted_address: String, // formattedAddress
+  international_phone_number: String, // internationalPhoneNumber
+  national_phone_number: String, // nationalPhoneNumber
+  openingHours: [String], // regularOpeningHours.weekdayDescriptions
+  rating: Number, // rating
+  website: String, // websiteUri
+  serves_beer: Boolean, // serves_beer
+  serves_breakfast: Boolean, // serves_breakfast
+  serves_lunch: Boolean, // serves_lunch
+  serves_dinner: Boolean, // serves_dinner
+  serves_wine: Boolean, // serves_wine
+  price_level: Number, // price_level
+  reservable: Boolean, // reservable
+  types: [String], // types
+  summary: String // editorial_summary
 });
 
 const Poi = mongoose.model('Poi', poiSchema);
