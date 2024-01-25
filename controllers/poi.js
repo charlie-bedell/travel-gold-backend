@@ -3,7 +3,7 @@
 // import { Itinerary } from "../models/itinerary.js";
 import axios from 'axios';
 
-function mapPlacetoPoi(placeData) {
+function mapPlaceToPoi(placeData) {
   const poiData = {
     place_id: placeData.id,
     name: placeData.displayName.text,
@@ -11,7 +11,7 @@ function mapPlacetoPoi(placeData) {
     formatted_address: placeData.formattedAddress,
     international_phone_number: placeData.internationPhoneNumber,
     national_phone_number: placeData.nationalPhoneNumber,
-    openingHours: placeData.regularOpeningHours.weekdayDescriptions, // todo: does this work?
+    openingHours: placeData.regularOpeningHours.weekdayDescriptions,
     rating: placeData.rating,
     website: placeData.websiteUri,
     serves_beer: placeData.serves_beer,
@@ -27,8 +27,7 @@ function mapPlacetoPoi(placeData) {
   return poiData;
 }
 
-function fetchPlace(req,res) {
-  const place_id = req.params.place_id;
+async function fetchPlace(place_id) {
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
   
   const placeFields = ['id',
@@ -51,47 +50,30 @@ function fetchPlace(req,res) {
                        'reservable',
                        'types'];
 
-  console.log('place_id: ', place_id);
-  console.log('GOOGLE_MAPS_API_KEY: ', GOOGLE_MAPS_API_KEY);
-
-  axios.get(`https://places.googleapis.com/v1/places/${place_id}?fields=${placeFields.join(",")}&key=${GOOGLE_MAPS_API_KEY}`)
-  .then((result) => {
-    console.log('hello there')
-    const placeInfo = result.data;
-    Poi.create(placeInfo)
-    .then((newPlace) => {
-    return newPlace
-    }) 
-    .catch((err) => {
-      res.status(500).json({message:'error creating new place', error:`${err}`});
-    })
-  })
-  .catch ((err) => {
-    res.status(501).json({message:'error fetching place details', error:`${err}`});
-  });
+  try {
+    let result = await axios.get(`https://places.googleapis.com/v1/places/${place_id}?fields=${placeFields.join(",")}&key=${GOOGLE_MAPS_API_KEY}`);
+    const poiData = mapPlaceToPoi(result.data);
+    const poi = await Poi.create(poiData);
+    return poi;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
-function getPlace(req,res){
-  const place_id = req.params.place_id
-  Poi.findOne({place_id})
-  .then((place) => {
-    console.log('made it made it')
-    if(place) {
-      res.status(200).json(place)
+async function getPlace(req,res) {
+  const place_id = req.params.place_id;
+  try {
+    const poi = await Poi.findOne({ place_id: `${place_id}` });
+    if (poi) {
+      res.status(200).json(poi);
     } else {
-      console.log('made it')
-      fetchPlace(req,res)
-      .then ((newPlace) => {
-      res.status(200).json(newPlace)
-      })
-    }
-  })
-  .catch((err) => {
-    res.status(501).json({message:'error getting place', error:`${err}`})
-  });
-  };
-
-
+      const place = await fetchPlace(place_id);
+      res.status(200).json(place);
+    }  
+  } catch (err) {
+    res.status(500).json({message: 'error fetching place', error: `${err}`});
+  }
+}
 
 
 

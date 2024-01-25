@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 const poiSchema = new Schema ({
   place_id: String, // id
-  name: String, // displayName
+  name: String, // displayName.text
   business_status: String, // business_status
   formatted_address: String, // formattedAddress
   international_phone_number: String, // internationalPhoneNumber
   national_phone_number: String, // nationalPhoneNumber
-  openingHours: String, // regularOpeningHours.weekdayDescriptions
+  openingHours: [String], // regularOpeningHours.weekdayDescriptions
   rating: Number, // rating
   website: String, // websiteUri
   serves_beer: Boolean, // serves_beer
@@ -20,6 +20,7 @@ const poiSchema = new Schema ({
   price_level: Number, // price_level
   reservable: Boolean, // reservable
   types: [String], // types
+  summary: String // editorial_summary
 });
 
 const Poi = mongoose.model('Poi', poiSchema);
