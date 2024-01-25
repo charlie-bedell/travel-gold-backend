@@ -54,6 +54,7 @@ async function fetchPlace(place_id, itinerary_id) {
     let result = await axios.get(`https://places.googleapis.com/v1/places/${place_id}?fields=${placeFields.join(",")}&key=${GOOGLE_MAPS_API_KEY}`);
     const poiData = mapPlaceToPoi(result.data);
     const poi = await Poi.create(poiData).then((newPoi) => {
+      console.log('issue on line 57');
       Itinerary.findOneAndUpdate({_id: itinerary_id}, {$push: { place_ids: place_id}});
     });
     return poi;
@@ -64,10 +65,11 @@ async function fetchPlace(place_id, itinerary_id) {
 
 async function getPlace(req,res) {
   const place_id = req.params.place_id;
-  const itinerary_id = req.params.place_id;
+  const itinerary_id = req.params.itinerary_id;
   try {
     const poi = await Poi.findOne({ place_id: `${place_id}` });
     if (poi) {
+      console.log('issue on line 73');
       await Itinerary.findOneAndUpdate({_id: itinerary_id}, {$push: { place_ids: place_id}});
       res.status(200).json(poi);
     } else {
@@ -81,9 +83,9 @@ async function getPlace(req,res) {
 
 async function removePlaceFromItinerary(req,res) {
   const place_id = req.params.place_id;
-  const itinerary_id = req.params.place_id;
+  const itinerary_id = req.params.itinerary_id;
   try {
-    Itinerary.findOneAndUpdate({_id: itinerary_id}, {$pull: { place_ids: place_id }});
+    await Itinerary.findOneAndUpdate({_id: itinerary_id}, {$pull: { place_ids: place_id }});
     res.status(200).json({message: "removed place from itinerary", place_id: place_id});
   } catch (err) {
     res.status(500).json({message: "error removing place_id from itinerary",
