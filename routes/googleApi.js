@@ -5,7 +5,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get('/nearbySearch/', googsController.getNearbyPlaces)
+router.get('/nearbySearch/', googsController.getNearbyPlaces);
 
 
 

@@ -13,7 +13,7 @@ import { router as profilesRouter } from './routes/profiles.js';
 import { router as authRouter } from './routes/auth.js';
 import { router as itinRouter } from './routes/itineraries.js';
 import { router as googsRouter } from './routes/googleApi.js';
-import { router as poiRouter } from './routes/poi.js'
+import { router as poiRouter } from './routes/poi.js';
 import { decodeUserFromToken } from './middleware/auth.js';
 // create the express app
 const app = express();
@@ -27,8 +27,7 @@ app.use(express.json());
 // mount imported routes
 app.use('/api/profiles', profilesRouter);
 app.use('/api/auth', authRouter);
-app.use('/google/api', googsRouter)
-app.use('/poi', poiRouter)
+app.use('/google/api', googsRouter);
 app.use('/itineraries', decodeUserFromToken, itinRouter);
 
 

@@ -6,7 +6,9 @@ const Schema = mongoose.Schema;
 const itinerarySchema = new Schema ({
   name: String,
   profile_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
-  poi_ids: [{type: mongoose.Schema.Types.ObjectId, ref: 'POI'}],
+  start_date: {type: Date},
+  end_date: {type: Date},
+  place_ids: [{type: String}],
   isPublic: Boolean
 });
 
