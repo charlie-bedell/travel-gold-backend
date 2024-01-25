@@ -92,7 +92,7 @@ function editItinerary(req, res) {
       } else if (!mongoose.Types.ObjectId(profileId).equals(itinerary.profile_id)) {
         throw new Error('User does not have permission to edit this itinerary');
       }
-      Itinerary.findOneAndUpdate(itineraryId, req.body)
+      Itinerary.findOneAndUpdate({_id: itineraryId}, req.body)
         .then((itinerary) => {res.status(200).json({ message: "Itinerary Updated"});});
     })
     .catch((err) => {
