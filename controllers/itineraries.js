@@ -1,5 +1,6 @@
 import { Profile } from "../models/profile.js";
 import { Itinerary } from "../models/itinerary.js";
+import { Poi } from "../models/poi.js";
 import mongoose from 'mongoose';
 
 function getItineraryList(req, res) {
@@ -41,7 +42,16 @@ function getItineraryInfo(req, res) {
           }
           throw new Error('Itinerary is not public');
         } else {
-          res.status(200).json({ itinerary });
+          // res.status(200).json({ itinerary });
+          Poi.find({ place_id: {$in: itinerary.place_ids}}).then((places) => {
+            
+            const itineraryJson = itinerary.toJSON();
+            
+            itineraryJson.places = places;
+            
+            res.status(200).json(itineraryJson);
+          }).catch((err) => {res.status(500).json(
+            {message: 'unable to populate itin with place_ids', error: `${err}`});});
         }
       });
   })
@@ -64,7 +74,6 @@ function createNewItinerary(req, res) {
       const profileId = itinerary.profile_id;
       Profile.findByIdAndUpdate(profileId, { $push: {itinerary_ids: itineraryId}})
         .then((profile) => {
-          // the itineraryId might be a little messy, might remove in the future
           res.status(200).json({message: "itinerary created!", itineraryId: itineraryId });
         });
     }).catch((err) => {

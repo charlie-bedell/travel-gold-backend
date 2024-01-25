@@ -64,7 +64,7 @@ async function fetchPlace(place_id, itinerary_id) {
 
 async function getPlace(req,res) {
   const place_id = req.params.place_id;
-  const itinerary_id = req.params.itinerary_id;
+  const  itinerary_id = req.params.itinerary_id;
   try {
     const poi = await Poi.findOne({ place_id: `${place_id}` });
     if (poi) {
