@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const itinerarySchema = new Schema ({
   name: String,
+  locationName: {type: String},
   startDate: {type: Date, required:true },
   endDate: {type: Date, required:true},
   profile_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
