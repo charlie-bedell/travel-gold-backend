@@ -9,10 +9,8 @@ const itinerarySchema = new Schema ({
   startDate: {type: Date, required:true },
   endDate: {type: Date, required:true},
   profile_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Profile'},
-  start_date: {type: Date},
-  end_date: {type: Date},
   place_ids: [{type: String}],
-  isPublic: Boolean
+  isPublic: {type: Boolean, default: true}
 });
 
 itinerarySchema.pre('save', function (next) {
