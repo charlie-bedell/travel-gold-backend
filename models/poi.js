@@ -20,7 +20,9 @@ const poiSchema = new Schema ({
   price_level: Number, // price_level
   reservable: Boolean, // reservable
   types: [String], // types
-  summary: String // editorial_summary
+  summary: String, // editorial_summary
+  lat: Number, // from params
+  long: Number // from params
 });
 
 const Poi = mongoose.model('Poi', poiSchema);

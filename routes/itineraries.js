@@ -13,7 +13,7 @@ router.put('/:itinerary_id', itinerariesController.editItinerary);
 
 router.delete('/:itinerary_id', itinerariesController.deleteItinerary);
 
-router.get('/:itinerary_id/poi/:place_id', poiController.getPlace);
+router.get('/:itinerary_id/poi/:place_id/:lat/:long', poiController.getPlace);
 
 router.delete('/:itinerary_id/poi/:place_id', poiController.removePlaceFromItinerary);
 
