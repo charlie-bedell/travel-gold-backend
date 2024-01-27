@@ -5,23 +5,23 @@ import axios from 'axios';
 
 function mapPlaceToPoi(placeData) {
   const poiData = {
-    place_id: placeData.id,
-    name: placeData.displayName.text,
-    business_status: placeData.business_status,
-    formatted_address: placeData.formattedAddress,
-    international_phone_number: placeData.internationPhoneNumber,
-    national_phone_number: placeData.nationalPhoneNumber,
-    openingHours: placeData.regularOpeningHours.weekdayDescriptions,
-    rating: placeData.rating,
-    website: placeData.websiteUri,
-    serves_beer: placeData.serves_beer,
-    serves_lunch: placeData.serves_lunch,
-    serves_dinner: placeData.serves_dinner,
-    serves_wine: placeData.serves_wine,
-    price_level: placeData.price_level,
-    reservable: placeData.reservable,
-    types: placeData.types,
-    summary: placeData.editorial_summary
+    place_id: placeData?.id,
+    name: placeData?.displayName.text,
+    business_status: placeData?.business_status,
+    formatted_address: placeData?.formattedAddress,
+    international_phone_number: placeData?.internationPhoneNumber,
+    national_phone_number: placeData?.nationalPhoneNumber,
+    openingHours: placeData.regularOpeningHours?.weekdayDescriptions,
+    rating: placeData?.rating,
+    website: placeData?.websiteUri,
+    serves_beer: placeData?.serves_beer,
+    serves_lunch: placeData?.serves_lunch,
+    serves_dinner: placeData?.serves_dinner,
+    serves_wine: placeData?.serves_wine,
+    price_level: placeData?.price_level,
+    reservable: placeData?.reservable,
+    types: placeData?.types,
+    summary: placeData?.editorial_summary
   };
 
   return poiData;
@@ -34,7 +34,7 @@ async function fetchPlace(place_id, itinerary_id, lat, long) {
                        'displayName',
                        'rating',
                        'editorialSummary',
-                       'regularOpeningHours.weekdayDescriptions',
+                       'regularOpeningHours',
                        'websiteUri',
                        'business_status',
                        'formattedAddress',
