@@ -43,7 +43,7 @@ My Itineraries: In "My itineraries" you will be able to view all the itineraries
 
 # ERD
 
-https://github.com/charlie-bedell/travel-gold-backend/blob/main/assets/ERD.png
+<img width="500" alt="Screenshot 2024-01-19 at 10 39 23 PM" src="https://github.com/charlie-bedell/travel-gold-backend/blob/main/assets/ERD.png">
 
 # Routes 
 
