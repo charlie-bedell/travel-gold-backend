@@ -5,7 +5,7 @@
 
 # Front-end / Back-end Deployment links
 
-https://teal-pony-b56b44.netlify.app/
+https://peaceful-pasca-8105c8.netlify.app/
 
 [https://github.com/charlie-bedell/travel-gold-backend](https://travel-gold-backend-2516f34de16d.herokuapp.com/)
 
@@ -40,6 +40,10 @@ My Itineraries: In "My itineraries" you will be able to view all the itineraries
 - JSON Web Token
 - Bcrypt
 - Google Maps SDK/API
+
+# ERD
+
+https://github.com/charlie-bedell/travel-gold-backend/blob/main/assets/ERD.png
 
 # Routes 
 
